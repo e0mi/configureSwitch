@@ -1,0 +1,67 @@
+#!/usr/bin/expect -f
+
+set timeout 20
+set echo  off
+#router username
+set username manager
+#router password
+set  password #PASSWORD
+#router IP address
+set ip [lindex $argv 0]
+
+
+
+spawn ssh $username@$ip
+send "yes\r"
+expect "*?assword: "
+send "$password\r"
+expect "#"
+send "configure\r"
+expect "(config)#"
+send "console idle-timeout 900\r"
+expect "(config)#"
+send "console idle-timeout serial-usb 900\r"
+expect "(config)#"
+send "logging #SYSLOGSRV\r"
+expect "(config)#"
+send "radius-server host #RadiusSRV key #KEY\r"
+expect "(config)#"
+send "timesync sntp\r"
+expect "(config)#"
+send "sntp unicast\r"
+expect "(config)#"
+send "sntp server priority 1 #NTP2\r"
+expect "(config)#"
+send "sntp server priority 2 #NTP2\r"
+expect "(config)#"
+send "time daylight-time-rule western-europe\r"
+expect "(config)#"
+send "time timezone 60\r"
+expect "(config)#"
+send "ip default-gateway #Gateway\r"
+expect "(config)#"
+send "no ip icmp echo broadcast-request\r"
+expect "(config)#"
+send "aaa authentication login privilege-mode\r"
+expect "(config)#"
+send "aaa authentication ssh login radius\r"
+expect "(config)#"
+send "activate provision disable\r"
+expect "(config)#"
+send "activate software-update disable\r"
+expect "(config)#"
+send "activate software-update disable\r"
+expect "(config)#"
+send "wr mem\r"
+expect "(config)#"
+send "exit\r"
+expect "#"
+send "exit\r"
+expect ">"
+send "exit\r"
+expect "Do you want to log out (y/n)?"
+send "y\r"
+expect "Connection closed by"
+expect eof
+exit
+exit
