@@ -2,11 +2,11 @@
 
 set timeout 20
 set echo  off
-#router username
+#Router/Switch username
 set username manager
-#router password
+#Router/Switch password
 set  password #PASSWORD
-#router IP address
+#Router/Switch IP address
 set ip [lindex $argv 0]
 
 

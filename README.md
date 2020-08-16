@@ -17,7 +17,7 @@ swconf.sh IP
 
 ```
 
-In "IP" or any file you list your ip's of the switsch.
+In "IP" or any file you list your ip's of the Switch.
 
 
  10.10.10.1
